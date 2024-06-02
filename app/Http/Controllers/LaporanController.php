@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Laporan;
+use App\Models\Rapat;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class LaporanController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+        public function index(Request $request)
+        {
+            if ($request->ajax()) {
+                $query = Laporan::with('rapat')->get();
+                return DataTables::of($query)->make(true);
+            }
+            return view('pages.laporan.index');
+        }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $rapat = Rapat::get();
+        return view('pages.laporan.create' , compact('rapat'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_rapat' => 'required',
+            'kesimpulan' => 'required',
+        ]);
+
+        Laporan::create($request->all());
+
+        return redirect('laporan')->with('toast', 'showToast("Data berhasil disimpan")');
+
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Laporan $laporan)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $rapat = Rapat::get();
+        $laporan = Laporan::findOrFail($id);
+        return view('pages.laporan.edit', compact('laporan' , 'rapat'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $laporan = Laporan::findOrFail($id);
+        $request->validate([
+            'id_rapat' => 'required',
+            'kesimpulan' => 'required',
+        ]);
+
+        $laporan->update($request->all());
+        return redirect('laporan')->with('toast', 'showToast("Data berhasil disimpan")');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Laporan $laporan)
+    {
+        //
+    }
+}
