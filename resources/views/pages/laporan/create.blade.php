@@ -20,8 +20,9 @@
                             <div class="col-sm-9">
                                 <select class="form-control @error('rapat_id') is-invalid @enderror" name="id_rapat"
                                     id="rapat_id">
+                                    <option value="">Select Agenda</option>
                                     @foreach ($rapat as $item)
-                                        <option name="id_rapat" value="{{ $item->id }}">{{ $item->agenda }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->agenda }}</option>
                                     @endforeach
                                 </select>
                                 @error('rapat_id')
@@ -32,60 +33,25 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-group row">
-                            <label for="agenda" class="col-sm-3 col-form-label">Agenda</label>
-                            <div class="col-sm-9">
-                                <input value="{{ $item->agenda }}" type="text"
-                                    class="form-control @error('agenda') is-invalid @enderror" name="agenda" id="agenda"
-                                    placeholder="Agenda">
-                                @error('agenda')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label for="waktu" class="col-sm-3 col-form-label">Waktu</label>
                             <div class="col-sm-9">
-                                <input value="{{ $item->waktu }}" type="time"
-                                    class="form-control @error('waktu') is-invalid @enderror" name="waktu" id="waktu"
-                                    placeholder="Waktu">
-                                @error('waktu')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="time" class="form-control" name="waktu" id="waktu" placeholder="Waktu" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="tanggal" class="col-sm-3 col-form-label">Tanggal</label>
                             <div class="col-sm-9">
-                                <input value="{{ $item->tanggal }}" type="date"
-                                    class="form-control @error('tanggal') is-invalid @enderror" name="tanggal"
-                                    id="tanggal" placeholder="Tanggal">
-                                @error('tanggal')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="Tanggal" disabled>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="acara" class="col-sm-3 col-form-label">Acara</label>
                             <div class="col-sm-9">
-                                <input value="{{ $item->acara }}" type="text"
-                                    class="form-control @error('acara') is-invalid @enderror" name="acara" id="acara"
-                                    placeholder="Acara">
-                                @error('acara')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control" name="acara" id="acara" placeholder="Acara" disabled>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="form-group row">
                             <label for="kesimpulan" class="col-sm-3 col-form-label">Kesimpulan</label>
@@ -100,7 +66,17 @@
                             </div>
                         </div>
 
-
+                        <div class="form-group custom-file">
+                            <label for="notulensi" class="custom-file-label">File Notulensi</label>
+                            <input value="{{ old('notulensi') }}" type="file"
+                                class="custom-file-input @error('notulensi') is-invalid @enderror" name="notulensi"
+                                id="notulensi" placeholder="Notulensi">
+                            @error('notulensi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -109,4 +85,24 @@
             </div>
         </div>
     </form>
+
+    <script>
+        document.getElementById('rapat_id').addEventListener('change', function () {
+            var rapatId = this.value;
+            if (rapatId) {
+                fetch('/detailRapat/' + rapatId)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('waktu').value = data.waktu;
+                        document.getElementById('tanggal').value = data.tanggal;
+                        document.getElementById('acara').value = data.acara;
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                document.getElementById('waktu').value = '';
+                document.getElementById('tanggal').value = '';
+                document.getElementById('acara').value = '';
+            }
+        });
+    </script>
 @endsection

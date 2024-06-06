@@ -22,24 +22,30 @@
             </ul>
         </li> --}}
 
-        @can('admin')
-            <li class="menu-header">Administrator</li>
-            <li class="{{ Route::is('user*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.index') }}">
-                    <i class="fas fa-users"></i>
-                    <span>Manage Users</span>
-                </a>
-            </li>
+        {{-- @can('admin') --}}
+        <li class="menu-header">Administrator</li>
+        <li class="{{ Route::is('user*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('user.index') }}">
+                <i class="fas fa-users"></i>
+                <span>Manage Users</span>
+            </a>
+        </li>
+        <li class="{{ Route::is('bidang*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('bidang.index') }}">
+                <i class="fas fa-users"></i>
+                <span>Manage Bidang</span>
+            </a>
+        </li>
 
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i>
-                    <span>Kelola Rapat</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{route('rapat.index')}}">Jadwal Rapat</a></li>
-                    <li><a href="{{route('laporan.index')}}">Laporan</a></li>
-                </ul>
-            </li>
-        @endcan
+        <li class="nav-item dropdown {{ Route::is('rapat*', 'laporan*') ? 'active' : '' }}  ">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i>
+                <span>Kelola Rapat</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="{{ Route::is('rapat*') ? 'active' : '' }}"><a href="{{ route('rapat.index') }}">Jadwal Rapat</a></li>
+                <li class="{{ Route::is('laporan*') ? 'active' : '' }}"><a href="{{ route('laporan.index') }}">Laporan</a></li>
+            </ul>
+        </li>
+        {{-- @endcan --}}
     </ul>
 </aside>

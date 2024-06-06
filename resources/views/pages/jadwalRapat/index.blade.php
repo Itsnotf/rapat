@@ -8,10 +8,12 @@
         <div class="card-header">
             <h4>Rapat List</h4>
             <div class="card-header-action">
+                @can('user')
                 <a href="{{ route('rapat.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i>
-                    Add New
+                    Buat Permohonan
                 </a>
+                @endcan
             </div>
         </div>
         <div class="card-body">
@@ -101,6 +103,7 @@
                         let opsiUpdate = `{{ url('/updateOpsi') }}/${row.id}`;
                         return `
         ${data}
+        @can('admin')
         <div class="d-flex justify-content-around">
             <form action="${deleteUrl}" method="POST" class="table-links">
                 @method('DELETE')
@@ -128,6 +131,7 @@
                 </button>
             </form>
         </div>
+        @endcan
     `;
                     }
 

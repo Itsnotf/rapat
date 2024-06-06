@@ -16,7 +16,12 @@ class LaporanController extends Controller
         {
             if ($request->ajax()) {
                 $query = Laporan::with('rapat')->get();
-                return DataTables::of($query)->make(true);
+                return DataTables::of($query)
+                ->addColumn('notulensi', function($row) {
+                    return '<a href="'.asset('storage/'.$row->notulensi).'" target="_blank">Download</a>';
+                })
+                ->rawColumns(['notulensi'])
+                ->make(true);
             }
             return view('pages.laporan.index');
         }
@@ -33,18 +38,23 @@ class LaporanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'id_rapat' => 'required',
-            'kesimpulan' => 'required',
-        ]);
+    public function store(Request $request){
+            $request->validate([
+                'id_rapat' => 'required',
+                'kesimpulan' => 'required',
+                'notulensi' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            ]);
 
-        Laporan::create($request->all());
+            $data = $request->all();
 
-        return redirect('laporan')->with('toast', 'showToast("Data berhasil disimpan")');
+            if ($request->hasFile('notulensi')) {
+                $data['notulensi'] = $request->file('notulensi')->store('notulensi', 'public');
+            }
 
-    }
+            Laporan::create($data);
+
+            return redirect('laporan')->with('toast', 'showToast("Data berhasil disimpan")');
+      }
 
     /**
      * Display the specified resource.

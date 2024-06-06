@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bidang;
+use App\Models\Laporan;
+use App\Models\Rapat;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +13,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.dashboard');
+        $totalUser = User::whereNot('role', 'superadmin')->count();
+        $totalBidang = Bidang::count();
+        $totalRapat = Rapat::count();
+        $totalLaporan = Laporan::count();
+        return view('pages.dashboard',compact('totalUser', 'totalBidang', 'totalRapat', 'totalLaporan'));
     }
 
     public function profile()

@@ -24,7 +24,7 @@ class Update extends FormRequest
         return [
             'name' => 'required|max:255',
             'NoHandphone' => 'required|max:255',
-            'bidang' => 'required|max:255',
+            'id_bidang' => 'nullable',
             'username' => 'required|min:3|unique:users,username,'.$this->route('user'),
             'email' => 'required|email|unique:users,email,'.$this->route('user'),
             'role' => 'required',

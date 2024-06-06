@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @can('admin')
-@section('title', 'Manage Laporan')
-@section('desc', ' On this page you can manage laporan. ')
+@section('title', 'Manage Bidang')
+@section('desc', ' On this page you can manage bidang. ')
 @endcan
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4>Laporan List</h4>
+            <h4>Bidang List</h4>
             <div class="card-header-action">
-                @can('user')
-                <a href="{{ route('laporan.create') }}" class="btn btn-primary">
+                @can('admin')
+                <a href="{{ route('bidang.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i>
-                    Buat Notulensi
+                    Buat Bidang
                 </a>
                 @endcan
             </div>
@@ -24,12 +24,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Agenda</th>
-                            <th>Acara</th>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Kesimpulan</th>
-                            <th>File Notulensi</th>
+                            <th>Nama</th>
+                            <th>descripsi</th>
                         </tr>
                     </thead>
                 </table>
@@ -61,35 +57,19 @@
                         name: 'id'
                     },
                     {
-                        data: 'rapat.agenda',
-                        name: 'agenda'
+                        data: 'nama',
+                        name: 'nama'
                     },
                     {
-                        data: 'rapat.acara',
-                        name: 'acara'
-                    },
-                    {
-                        data: 'rapat.tanggal',
-                        name: 'tanggal'
-                    },
-                    {
-                        data: 'rapat.waktu',
-                        name: 'waktu'
-                    },
-                    {
-                        data: 'kesimpulan',
-                        name: 'kesimpulan'
-                    },
-                    {
-                        data: 'notulensi',
-                        name: 'notulensi'
+                        data: 'desc',
+                        name: 'desc'
                     },
                 ],
 
                 columnDefs: [{
                     "targets": 2,
                     "render": function(data, type, row, meta) {
-                        let deleteUrl = `{{ url('/laporan') }}/${row.id}`;
+                        let deleteUrl = `{{ url('/bidang') }}/${row.id}`;
                         return `
         ${data}
         @can('admin')
@@ -97,7 +77,7 @@
             <form action="${deleteUrl}" method="POST" class="table-links">
                 @method('DELETE')
                 @csrf
-                <a href="{{ url('/laporan') }}/${row.id}/edit" class="btn btn-sm"> Edit </a>
+                <a href="{{ url('/bidang') }}/${row.id}/edit" class="btn btn-sm"> Edit </a>
                 <button type="submit" class="text-danger btn-delete btn btn-sm">
                     Delete
                 </button>

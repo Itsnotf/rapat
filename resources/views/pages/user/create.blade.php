@@ -36,17 +36,35 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="form-group row">
-                                <label for="bidang" class="col-sm-3 col-form-label">bidang</label>
+                                <label for="id_bidang" class="col-sm-3 col-form-label">Bidang</label>
                                 <div class="col-sm-9">
-                                    <input value="{{ old('bidang') }}" type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" id="bidang" placeholder="Bidang">
-                                    @error('bidang')
+                                    <select class="form-control @error('id_bidang') is-invalid @enderror" name="id_bidang"
+                                        id="id_bidang">
+                                        @foreach ($bidangs as $item)
+                                            <option name="id_bidang" value="{{ $item->id }}">{{ $item->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_bidang')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
+{{--
+                            <div class="form-group row">
+                                <label for="id_bidang" class="col-sm-3 col-form-label">Bidang</label>
+                                <div class="col-sm-9">
+                                    <input value="{{ old('id_bidang') }}" type="text" class="form-control @error('id_bidang') is-invalid @enderror" name="id_bidang" id="id_bidang" placeholder="Id_Bidang">
+                                    @error('id_bidang')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                                 <div class="col-sm-9">

@@ -41,17 +41,12 @@ class CreateNewUser implements CreatesNewUsers
                 'string',
                 'max:13',
             ],
-            'bidang' => [
-                'required',
-                'string',
-                'max:255',
-            ],
         ])->validate();
 
         return User::create([
             'name' => $input['name'],
             'NoHandphone' => $input['NoHandphone'],
-            'bidang' => $input['bidang'],
+            'id_bidang' => $input['id_bidang'] ?? 1,
             'email' => $input['email'],
             'username' => $input['username'],
             'password' => Hash::make($input['password']),

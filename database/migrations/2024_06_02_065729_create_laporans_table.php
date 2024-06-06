@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_rapat')->constrained('rapats')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('kesimpulan');
+            $table->string('notulensi');
             $table->timestamps();
         });
     }

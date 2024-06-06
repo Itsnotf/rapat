@@ -51,9 +51,10 @@ class RapatController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Rapat $rapat)
+    public function getDetail(string $id)
     {
-        //
+        $rapat = Rapat::findOrFail($id);
+        return response()->json($rapat);
     }
 
     /**

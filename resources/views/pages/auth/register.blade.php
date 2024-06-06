@@ -38,8 +38,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
+
+                                    <div class="form-group ">
                                         <label for="NoHandphone">No Handphone</label>
                                         <input value="{{ old('NoHandphone') }}" id="NoHandphone" type="text" class="form-control @error('NoHandphone') is-invalid @enderror" name="NoHandphone" autofocus>
                                         @error('NoHandphone')
@@ -48,16 +48,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="bidang">Bidang</label>
-                                        <input value="{{ old('bidang') }}" id="bidang" type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang">
-                                        @error('bidang')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input value="{{ old('email') }}" id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email">

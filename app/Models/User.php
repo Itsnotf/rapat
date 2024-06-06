@@ -26,8 +26,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'password',
         'avatar',
+        'id_bidang',
+        'NoHandphone',
     ];
 
+    public function bidang() {
+        return $this->hasOne(Bidang::class, 'id' , 'id_bidang');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,4 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
 }

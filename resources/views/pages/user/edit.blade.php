@@ -37,20 +37,26 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="bidang" class="col-sm-3 col-form-label">Bidang</label>
+                                <label for="id_bidang" class="col-sm-3 col-form-label">Bidang</label>
                                 <div class="col-sm-9">
-                                    <input value="{{ old('bidang', $item->bidang) }}" type="text" class="form-control @error('bidang') is-invalid @enderror" name="bidang" id="bidang" placeholder="Bidang">
-                                    @error('bidang')
+                                    <select class="form-control @error('id_bidang') is-invalid @enderror" name="id_bidang"
+                                        id="id_bidang">
+                                        @foreach ($bidangs as $bidang)
+                                            <option name="id_bidang" value="{{ $bidang->id }}">{{ $bidang->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_bidang')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                                 <div class="col-sm-9">
-                                    <input value="{{ old('email', $item->email) }}" type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email">
+                                    <input value="{{ old('email', $item->email) }}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email">
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -58,6 +64,7 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label for="role" class="col-sm-3 col-form-label">Role</label>
                                 <div class="col-sm-9">

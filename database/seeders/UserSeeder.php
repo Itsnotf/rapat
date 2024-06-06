@@ -16,6 +16,8 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Super Admin',
+            'id_bidang' => 2,
+            'NoHandphone' => '0823082382',
             'email' => 'superadmin@gmail.com',
             'email_verified_at' => now(),
             'role' => 'superadmin',
@@ -25,6 +27,8 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Admin',
+            'id_bidang' => 2,
+            'NoHandphone' => '0823082382',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'role' => 'admin',

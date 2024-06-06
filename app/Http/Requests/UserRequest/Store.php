@@ -24,7 +24,7 @@ class Store extends FormRequest
         return [
             'name' => 'required|max:255',
             'NoHandphone' => 'required|max:255',
-            'bidang' => 'required|max:255',
+            'id_bidang' => 'required',
             'username' => 'required|min:3|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'role' => 'required',
